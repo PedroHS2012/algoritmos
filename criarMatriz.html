@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Matriz</title>
+</head>
+
+<body>
+    <h1>Criar matriz</h1><br>
+    <p>Linhas:</p><input type="number" placeholder="Quantidade de linhas" id="linhas"><br>
+    <p>Colunas:</p><input type="number" placeholder="Quantidade de colunas" id="colunas"><br><br><br>
+    <button onclick="criarMatriz()">Criar Matriz</button><br><br>
+    <h3>Proxima inserção:</h3>
+    <p id="saidaLinha">Linha atual: </p>
+    <p id="saidaColuna">Coluna   atual: </p>
+    <p id="saidaQuant">Espaços já preenchidos: </p>
+    <input type="number" placeholder="Coloque o numero:" id="numero"><br><br>
+    <button onclick="adicionar()">Adicionar numero</button><br>
+    <p id="saida"></p><br>
+
+
+    <script>
+        let linhaA = 1;
+        let colA = 1;
+        let matriz = [];
+        let cont = 0;
+
+        function criarMatriz() {
+            linhaA = 1;
+            colA = 1;
+            cont = 0;   
+            let l = parseFloat(document.getElementById('linhas').value);
+            let c = parseFloat(document.getElementById('colunas').value);
+
+            if (isNaN(l) || isNaN(c) || c <= 0 || l <= 0) {
+                alert("COLOQUE UM VALOR MAIOR QUE ZERO!!!");
+                return;
+            }
+            matriz = new Array(l);
+            for (let i = 0; i < l; i++) {
+                matriz[i] = new Array(c)
+                for (let e = 0; e < c; e++) {
+                    matriz[i][e] = 0;
+                }
+            }
+            document.getElementById('saida').innerHTML = mostrarMatriz(matriz);
+            document.getElementById('saidaLinha').innerHTML = "Linha atual: " + linhaA + " / " + l;
+            document.getElementById('saidaColuna').innerHTML = "Coluna atual: " + colA + " / " + c;
+            document.getElementById('saidaQuant').innerHTML = "Espaços já preenchidos: " + cont + " / " + c * l;
+
+
+
+        }
+        function adicionar() {
+            let n = parseFloat(document.getElementById('numero').value);
+            let l = parseFloat(document.getElementById('linhas').value);
+            let c = parseFloat(document.getElementById('colunas').value);
+            if (linhaA > l) {
+                alert("matriz cheia!!!");
+                return
+                colA = matriz.length - 1
+            }
+            matriz[linhaA - 1][colA - 1] = n;
+            cont++;
+            colA++;
+            if (colA > c) {
+                colA = 1;
+                linhaA++;
+            }
+let auxL = linhaA;
+let auxC = colA;
+if(auxL>l){
+    auxL--;
+    auxC = c;
+}
+            document.getElementById('saida').innerHTML = mostrarMatriz(matriz);
+            document.getElementById('saidaLinha').innerHTML = "Linha atual: " + auxL + " / " + l;
+            document.getElementById('saidaColuna').innerHTML = "Coluna atual: " + auxC + " / " + c;
+            document.getElementById('saidaQuant').innerHTML = "Espaços já preenchidos: " + cont + " / " + c * l;
+
+
+
+
+        }
+        function mostrarMatriz(m) {
+            let aux = "";
+            for (let i = 0; i < m.length; i++) {
+                aux += m[i].join(" ") + "<br>";
+            } return aux;
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos</title>
+</head>
+
+<body>
+    <h1>Alunos da UTFPR</h1>
+    <button onclick="listarAlunos()">Listar Alunos</button><br>
+    <input type="number" id="inputRA" placeholder="Coloque o RA:">
+    <button onclick="mostrarPorRA()">Buscar por RA</button><br>
+    <button onclick="ordemAlfabetica()">Ordem Alfabetica</button>
+
+
+    <h3 id="saida"></h3>
+    <script>
+        class Alunos {
+            constructor(RA, nome, curso) {
+                this.RA = RA;
+                this.nome = nome;
+                this.curso = curso;
+            }
+        }
+        let listaAluninhos = [];
+        let aluno = new Alunos(2864762, "Danigel Glatzkq", "Engenharia Agricola");
+        listaAluninhos.push(aluno);
+        aluno = new Alunos(2867042, "Regina Ikeda", "Psicologia");
+        listaAluninhos.push(aluno);
+        aluno = new Alunos(2885497, "Ronaldo Dolci", "Encanamento");
+        listaAluninhos.push(aluno);
+        function listarAlunos() {
+            document.getElementById("saida").innerHTML = listagem(listaAluninhos)
+        }
+        function listagem(listaAluninhos) {
+            let string = "<br>";
+            string += "<strong>Nome | RA | Curso </strong><br>";
+            string += "------------------------------------------------<br>";
+            for (let i = 0; i < listaAluninhos.length; i++) {
+                string += listaAluninhos[i].nome + " - " + listaAluninhos[i].RA + " - " + listaAluninhos[i].curso + "<br>";
+            }
+            return string;
+        }
+
+        function mostrarPorRA() {
+            let RA = parseFloat(document.getElementById("inputRA").value);
+            document.getElementById("saida").innerHTML = classRA(listaAluninhos, RA)
+        }
+        function classRA(listaAluninhos, VRA) {
+            let string = "";
+            for (let i = 0; i < listaAluninhos.length; i++) {
+                if (listaAluninhos[i].RA == VRA) {
+                    string = listaAluninhos[i].RA + " - " + listaAluninhos[i].nome + " - " + listaAluninhos[i].curso;
+                }
+            }
+            if (string == "") {
+                alert("Não há nenhum aluno com esse RA");
+                return;
+            } else {
+                return string;
+            }
+        }
+
+        function ordemAlfabetica() {
+            alfabetica(listaAluninhos);
+            document.getElementById("saida").innerHTML = listagem(listaAluninhos);
+        }
+        function alfabetica(listaAluninhos) {
+           let aux;
+            for (let i = listaAluninhos.length - 1; i > 0; i--) {
+                for (let j = 0; j > i; j++) {
+                    let nome = listaAluninhos[j].nome;
+                    let prox = listaAluninhos[j+1].nome;
+                    if(nome[0] < prox[0]){
+                        aux = listaAluninhos[j].nome;
+                        listaAluninhos[j].nome = listaAluninhos[j+1].nome;
+                        listaAluninhos[j+1].nome = aux;
+                    } else if (nome[0] == prox[0] && nome[1] < prox[1]){
+                             aux = listaAluninhos[j].nome;
+                        listaAluninhos[j].nome = listaAluninhos[j+1].nome;
+                        listaAluninhos[j+1].nome = aux;
+                    }
+                }
+    }
+        }
+    </script>
+</body>
+
+</html>

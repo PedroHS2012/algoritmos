@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pessoa</title>
+</head>
+
+<body>
+    <button onclick="listarTodasAsPessoas()">ex03 - Listar Pessoas</button><br>
+    <button onclick="mostrarMaisVelho()">ex04 - Mostrar Mais Velho</button><br>
+    <button onclick="mostrarMaisNovo()">ex05 - Mostrar Mais Novo</button><br>
+    <button onclick="mostrarMaisPesado()">ex06 - Mostrar Mais Pesado</button><br>
+    <button onclick="mostrarMaisLeve()">ex07 - Mostrar Mais Leve</button><br>
+    <button onclick="mostrarMediaIdade()">ex08 - Mostrar Media Idades</button><br>
+    <button onclick="mostrarMediaPesos()">ex09 - Mostrar Media Pesos</button><br>
+    <button onclick="mostrarAcima50Anos()">ex10 - Mostrar Acima 50 Anos</button><br>
+
+    <h4 id="saida"></h4>
+
+    <script src="Pessoa.js"></script>
+    <script>
+        let listaPessoas = [];
+        let pessoa = new Paciente(1, "Ana Souza", "Unimed", 34, 62.5, 1.65);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(2, "Bruno Lima", " Bradesco", 45, 88.0, 1.78);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(3, "Carla Dias", "SUS", 28, 55.0, 1.60);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(4, "Diego Rocha", "Amil", 52, 95.5, 1.82);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(5, "Elisa Martins", "Unimed", 19, 50.0, 1.58);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(6, "Fábio Nunes", "SUS", 61, 78.0, 1.70);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(7, "Gisele Alves", "Bradesco", 37, 68.0, 1.66);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(8, "Hugo Prado", "Amil", 24, 82.0, 1.85);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(9, "Isabel Costa", "Unimed", 48, 70.5, 1.63);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(10, "João Vilela", "SUS", 55, 90.0, 1.75);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(11, "Karen Melo", "Bradesco", 31, 58.0, 1.62);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(12, "Lucas Reis", "Amil", 42, 75.0, 1.72);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(13, "Marina Paiva", "Unimed", 29, 60.0, 1.68);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(14, "Nelson Braga", "SUS", 67, 85.0, 1.74);
+        listaPessoas.push(pessoa);
+        pessoa = new Paciente(15, "Olívia Ferraz", "Bradesco", 22, 53.0, 1.60);
+        listaPessoas.push(pessoa);
+
+        //ex 3
+        function listarTodasAsPessoas() {
+            let lp = mostrarListaPessoas(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function mostrarListaPessoas(listaPessoas) {
+            let listagem = "<br>";
+            for (let i = 0; i < listaPessoas.length; i++) {
+                let linha = listaPessoas[i];
+                listagem += linha.nome + " - " + linha.idade + " anos" + "<br>";
+            }
+            return listagem;
+        }
+
+        //ex 4
+        function mostrarMaisVelho() {
+            let lp = maisVelho(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function maisVelho(listaPessoas) {
+            let mais = 0;
+            for (let i = 1; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].idade > listaPessoas[mais].idade) {
+                    mais = i;
+                }
+            }
+            let string = listaPessoas[mais].nome + " - " + listaPessoas[mais].idade + " anos";
+            return string
+        }
+
+        //ex 5
+        function mostrarMaisNovo() {
+            let lp = maisNovo(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function maisNovo(listaPessoas) {
+            let menos = 0;
+            for (let i = 1; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].idade < listaPessoas[menos].idade) {
+                    menos = i;
+                }
+            }
+            let string = listaPessoas[menos].nome + " - " + listaPessoas[menos].idade + " anos";
+            return string
+        }
+
+        //ex 6
+        function mostrarMaisPesado() {
+            let lp = maisPesado(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function maisPesado(listaPessoas) {
+            let mais = 0;
+            for (let i = 1; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].peso > listaPessoas[mais].peso) {
+                    mais = i;
+                }
+            }
+            let string = listaPessoas[mais].id + " - " + listaPessoas[mais].nome + " - " + listaPessoas[mais].convenio + " - " + listaPessoas[mais].idade + " anos - " + listaPessoas[mais].peso + "Kg - " + listaPessoas[mais].altura + "m";
+            return string
+        }
+
+        //ex 7
+        function mostrarMaisLeve() {
+            let lp = maisLeve(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function maisLeve(listaPessoas) {
+            let menos = 0;
+            for (let i = 1; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].peso < listaPessoas[menos].peso) {
+                    menos = i;
+                }
+            }
+            let string = listaPessoas[menos].id + " - " + listaPessoas[menos].nome + " - " + listaPessoas[menos].convenio + " - " + listaPessoas[menos].idade + " anos - " + listaPessoas[menos].peso + "Kg - " + listaPessoas[menos].altura + "m";
+            return string
+        }
+
+        //ex 8
+        function mostrarMediaIdade() {
+            let lp = mediaIdade(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function mediaIdade(listaPessoas) {
+            let soma = 0;
+            for (let i = 0; i < listaPessoas.length; i++) {
+                soma = soma + listaPessoas[i].idade;
+            }
+            let med = soma / listaPessoas.length;
+            return "Média des idades: " + med.toFixed(2) + " anos";
+        }
+
+        //ex 9
+        function mostrarMediaPesos() {
+            let lp = mediaPeso(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+        }
+        function mediaPeso(listaPessoas) {
+            let soma = 0;
+            for (let i = 0; i < listaPessoas.length; i++) {
+                soma = soma + listaPessoas[i].peso;
+            }
+            let med = soma / listaPessoas.length;
+            return "Média dos pesos: " + med.toFixed(2) + "kg";
+        }
+
+        //ex 10
+        function mostrarAcima50Anos() {
+            let lp = acima50(listaPessoas);
+            document.getElementById("saida").innerHTML = lp;
+
+        }
+        function acima50(listaPessoas) {
+            let string = "";
+            for (let i = 0; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].idade >= 50) {
+                    string += listaPessoas[i].nome + " - " + listaPessoas[i].idade + " anos<br>";
+                }
+            }
+            return string;
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

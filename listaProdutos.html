@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto</title>
+</head>
+
+<body>
+    <input type="button" value="ex03 - Listar Produtos" onclick="listarTodosOsProdutos()"><br>
+    <input type="button" value="ex04 - Produto Mais Pesado" onclick="mostrarProdutoMaisPesado()"><br>
+    <input type="button" value="ex05 - Produto Mais Leve" onclick="mostrarProdutoMaisLeve()"><br>
+    <input type="button" value="ex06 - Produto Mais Caro" onclick="mostrarProdutoMaisCaro()"><br>
+    <input type="button" value="ex07 - Produto Mais Barato" onclick="mostrarProdutoMaisBarato()"><br>
+    <input type="button" value="ex08 - Média de Preços" onclick="mostrarMediaPrecos()"><br>
+    <input type="button" value="ex09 - Média de Peso" onclick="mostrarMediaPeso()"><br>
+    <input type="button" value="ex10 - Alerta Estoque Baixo" onclick="mostrarAlertaEstoqueBaixo()"><br>
+    <input type="button" value="ex11 - Filtar até 100 reais" onclick="mostrar100Reais()"><br>
+    <input type="text" id="inputNome" placeholder="Nome do produto">
+    <input type="button" value="ex12 - Filtar por Nome" onclick="mostrarFiltroNome()"><br>
+    <input type="button" value="ex13 - Valor Acumulado em Estoque" onclick="mostrarValorEstoque()"><br>
+    <input type="button" value="ex14 - Valor Total do Estoque" onclick="mostrarValorTotal()"><br>
+    <input type="button" value="ex15 - Quantidade Total de Itens Armazenados" onclick="mostrarTotalItens()"><br>
+    <input type="button" value="ex16 - Peso Total dos Itens Armazenados" onclick="mostrarTotalPeso()"><br>
+    <input type="number" id="inputID" placeholder="id do produto">
+    <input type="number" id="inputQuant" placeholder="Quantidade">
+    <input type="button" value="ex17 - Listar Produtos Recebidos" onclick="mostrarProdutosRecebidos()"><br>
+    <input type="button" value="ex18 - Desconto Promocional" onclick="mostrarDesconto()"><br>
+    <input type="button" value="ex19 - Classificação por Preço" onclick="mostrarClassificacao()"><br>
+    <input type="button" value="ex20 - Ordenar por Preço" onclick="mostrarOrdenacao()"><br>
+
+
+    <br>
+    <h3 id="resposta"></h3>
+
+    <script src="produtos.js"></script>
+
+    <script>
+        let listaProdutos = [];
+        let produto = new Produto(1, "Bola de Futebol Campo", 89.90, 0.45, 30);
+        listaProdutos.push(produto);
+
+        produto = new Produto(2, "Chuteira Society", 199.90, 0.70, 15);
+        listaProdutos.push(produto);
+
+        produto = new Produto(3, "Raquete de Tênis", 350.00, 0.30, 8);
+        listaProdutos.push(produto);
+
+        produto = new Produto(4, "Bola de Basquete", 120.00, 0.62, 20);
+        listaProdutos.push(produto);
+
+        produto = new Produto(5, "Kettlebell 12kg", 180.00, 12.00, 5);
+        listaProdutos.push(produto);
+
+        produto = new Produto(6, "Caneleira de Futebol", 35.00, 0.15, 40);
+        listaProdutos.push(produto);
+
+        produto = new Produto(7, "Luva de Boxe 12oz", 150.00, 0.80, 12);
+        listaProdutos.push(produto);
+
+        produto = new Produto(8, "Prancha Stand Up Paddle", 2500.00, 11.50, 2);
+        listaProdutos.push(produto);
+
+        produto = new Produto(9, "Óculos de Natação", 45.00, 0.08, 50);
+        listaProdutos.push(produto);
+
+        produto = new Produto(10, "Colchonete de Yoga", 65.00, 0.90, 25);
+        listaProdutos.push(produto);
+
+        produto = new Produto(11, "Anilha de Ferro 10kg", 130.00, 10.00, 10);
+        listaProdutos.push(produto);
+
+        produto = new Produto(12, "Capacete de Ciclismo", 160.00, 0.28, 18);
+        listaProdutos.push(produto);
+
+        produto = new Produto(13, "Corda de Pular Veloz", 25.00, 0.12, 60);
+        listaProdutos.push(produto);
+
+        produto = new Produto(14, "Mochila de Hidratação", 210.00, 0.40, 14);
+        listaProdutos.push(produto);
+
+        produto = new Produto(15, "Kimono de Jiu-Jitsu", 380.00, 1.80, 7);
+        listaProdutos.push(produto);
+
+        function mostrarListaProdutos(listaProdutos) {
+            let listagem = "<br>";
+            listagem += "<strong>Nome | Preço Unitário </strong><br>";
+            listagem += "------------------------------------------------<br>";
+            for (let i = 0; i < listaProdutos.length; i++) {
+                const linha = listaProdutos[i];
+                listagem += linha.nome + " - R$ " + linha.precoUnitario.toFixed(2) +
+                    "<br>";
+            }
+            return listagem;
+        }
+        function produtoMaisPesado(listaProdutos) {
+            let maisPesado = listaProdutos[0].peso;
+            let pos = 0;
+            for (let i = 1; i < listaProdutos.length; i++) {
+                let linha = listaProdutos[i];
+                if (linha.peso > maisPesado) {
+                    maisPesado = linha.peso;
+                    pos = i;
+                }
+            }
+            return "Produto mais pesado: " + listaProdutos[pos].nome + " - " +
+                (listaProdutos[pos].peso).toFixed(2) + " kg";
+        }
+        function produtoMaisLeve(listaProdutos) {
+            let maisLeve = listaProdutos[0].peso;
+            let pos = 0;
+            for (let i = 1; i < listaProdutos.length; i++) {
+                let linha = listaProdutos[i];
+                if (linha.peso < maisLeve) {
+                    maisLeve = linha.peso;
+                    pos = i;
+                }
+            }
+            return "Produto mais leve: " + listaProdutos[pos].nome + " - " +
+                (listaProdutos[pos].peso).toFixed(2) + " kg";
+        }
+        function produtoMaisCaro(listaProdutos) {
+            let maisCaro = listaProdutos[0].precoUnitario;
+            let pos = 0;
+            for (let i = 1; i < listaProdutos.length; i++) {
+                let linha = listaProdutos[i];
+                if (linha.precoUnitario > maisCaro) {
+                    maisCaro = linha.precoUnitario;
+                    pos = i;
+                }
+            }
+            return "Produto mais caro: " + listaProdutos[pos].nome + " - " +
+                listaProdutos[pos].peso.toFixed(2) + " kg - R$" +
+                listaProdutos[pos].precoUnitario.toFixed(2) + " - ID: " +
+                listaProdutos[pos].id + " - Estoque: " + listaProdutos[pos].quantidadeEstoque;
+        }
+        function produtoMaisBarato(listaProdutos) {
+            let maisBarato = listaProdutos[0].precoUnitario;
+            let pos = 0;
+            for (let i = 1; i < listaProdutos.length; i++) {
+                let linha = listaProdutos[i];
+                if (linha.precoUnitario < maisBarato) {
+                    maisBarato = linha.precoUnitario;
+                    pos = i;
+                }
+            }
+            return "Produto mais barato: " + listaProdutos[pos].nome + " - " +
+                listaProdutos[pos].peso + " kg - R$" +
+                listaProdutos[pos].precoUnitario + " - ID: " +
+                listaProdutos[pos].id + " - Estoque: " + listaProdutos[pos].quantidadeEstoque;
+        }
+        function mediaPrecos(listaProdutos) {
+            let soma = 0;
+            for (let i = 0; i < listaProdutos.length; i++) {
+                soma += listaProdutos[i].precoUnitario;
+            }
+            let div = soma / listaProdutos.length;
+            return div + " Reais";
+        }
+        function mediaPeso(listaProdutos) {
+            let soma = 0;
+            for (let i = 0; i < listaProdutos.length; i++) {
+                soma += listaProdutos[i].peso;
+            }
+            let div = soma / listaProdutos.length;
+            return div.toFixed(3) + " Kg";
+        }
+        function alertaEstoqueBaixo(listaProdutos) {
+            let string = "";
+            for (let i = 0; i < listaProdutos.length; i++) {
+                if (listaProdutos[i].quantidadeEstoque < 10) {
+                    string += listaProdutos[i].nome + " - " + listaProdutos[i].quantidadeEstoque + " itens <br>";
+                }
+            }
+            return string;
+        }
+        function filto100Reais(listaProdutos) {
+            let string = "";
+            for (let i = 0; i < listaProdutos.length; i++) {
+                if (listaProdutos[i].precoUnitario < 100) {
+                    string += listaProdutos[i].nome + " - " + listaProdutos[i].precoUnitario.toFixed(2) + " Reais <br>";
+                }
+            }
+            return string;
+        }
+        function filtroNome(Vnome, listaProdutos) {
+            let string = "";
+            for (let i = 0; i < listaProdutos.length; i++) {
+                if (listaProdutos[i].nome == Vnome) {
+                    string = listaProdutos[i].nome + " - " +
+                        listaProdutos[i].peso.toFixed(2) + " kg - R$" +
+                        listaProdutos[i].precoUnitario.toFixed(2) + " - ID: " +
+                        listaProdutos[i].id + " - Estoque: " + listaProdutos[i].quantidadeEstoque;
+                }
+            }
+            if (string == "") {
+                alert("Não há nenhum produto com esse nome");
+                return;
+            } else {
+                return string;
+            }
+        }
+        function valorEstoque(listaProdutos) {
+            let string = "";
+            let aux = 0;
+            for (let i = 0; i < listaProdutos.length; i++) {
+                aux = 0;
+                aux = listaProdutos[i].quantidadeEstoque * listaProdutos[i].precoUnitario
+                string += listaProdutos[i].nome + " - Valor acumulado em estoque: R$" + aux.toFixed(2) + "<br>";
+            }
+            return string;
+        }
+        function valorTotal(listaProdutos) {
+            let soma = 0;
+            let aux = 0;
+            for (let i = 0; i < listaProdutos.length; i++) {
+                aux = 0;
+                aux = listaProdutos[i].quantidadeEstoque * listaProdutos[i].precoUnitario
+                soma += aux
+            }
+            return "Valor Total do Estoque: R$" + soma.toFixed(2);
+        }
+        function totalItens(listaProdutos) {
+            let soma = 0;
+            for (let i = 0; i < listaProdutos.length; i++) {
+                soma += listaProdutos[i].quantidadeEstoque
+            }
+            return "Total de Itens no Estoque " + soma + " itens";
+        }
+        function totalPeso(listaProdutos) {
+            let string = "";
+            let aux = 0;
+            for (let i = 0; i < listaProdutos.length; i++) {
+                aux = 0;
+                aux = listaProdutos[i].quantidadeEstoque * listaProdutos[i].peso;
+                string += listaProdutos[i].nome + " - Peso total do estoque: Kg " + aux.toFixed(1) + "<br>";
+            }
+            return string;
+        }
+        function produtosRecebidos(listaProdutos, Id, quant) {
+            for (let i = 0; i < listaProdutos.length; i++) {
+                if (listaProdutos[i].id == Id) {
+                    listaProdutos[i].quantidadeEstoque = listaProdutos[i].quantidadeEstoque + quant;
+                    return i;
+                }
+            }
+            return -1;
+        }
+        function desconto(listaProdutos) {
+            let array = [];
+            for (let i = 0; i < listaProdutos.length; i++) {
+                if (listaProdutos[i].peso > 1) {
+                    array.push(i);
+                }
+            }
+            return array;
+        }
+        function classificar(listaProdutos) {
+            let resp = [];
+            let string = "";
+            for (let i = 0; i < listaProdutos.length; i++) {
+                if (listaProdutos[i].precoUnitario < 50) {
+                    resp.push("Barato");
+                } else if (listaProdutos[i].precoUnitario >= 50 && listaProdutos[i].precoUnitario < 200) {
+                    resp.push("Médio");
+                } else {
+                    resp.push("Caro")
+                }
+                string += listaProdutos[i].nome + " - R$" + listaProdutos[i].precoUnitario.toFixed(2) + " - " + resp[i] + "<br>";
+            }
+            return string;
+        }
+        function ordenar(listaProdutos) {
+            let vetor = listaProdutos;
+            let aux = [];
+            for (let i = vetor.length - 1; i > 0; i--) {
+                for (let e = 0; e < i; e++) {
+                    if (vetor[e].precoUnitario > vetor[e + 1].precoUnitario) {
+                        aux = vetor[e + 1];
+                        vetor[e + 1] = vetor[e];
+                        vetor[e] = aux;
+                    }
+                }
+            }
+            return mostrarListaProdutos(vetor);
+        }
+
+        function mostrarProdutosRecebidos() {
+            let Id = parseInt(document.getElementById("inputID").value);
+            let quant = parseInt(document.getElementById("inputQuant").value);
+            if (quant < 0 || isNaN(quant)) {
+                alert("Coloque uma quantidade de produtos maior que zero");
+                return;
+            }
+            let produtoAumentado = produtosRecebidos(listaProdutos, Id, quant);
+            if (produtoAumentado == -1) {
+                alert("ID não encontrado");
+                return;
+            }
+            let string = listaProdutos[produtoAumentado].nome + " - " + listaProdutos[produtoAumentado].quantidadeEstoque + " unidades";
+            document.getElementById("resposta").innerHTML = string;
+        }
+        function mostrar100Reais() {
+            document.getElementById("resposta").innerHTML = filto100Reais(listaProdutos);
+        }
+        function mostrarAlertaEstoqueBaixo() {
+            document.getElementById("resposta").innerHTML = alertaEstoqueBaixo(listaProdutos);
+        }
+        function mostrarMediaPrecos() {
+            document.getElementById("resposta").innerHTML = mediaPrecos(listaProdutos);
+        }
+        function mostrarProdutoMaisBarato() {
+            document.getElementById("resposta").innerHTML = produtoMaisBarato(listaProdutos);
+        }
+        function mostrarProdutoMaisPesado() {
+            document.getElementById("resposta").innerHTML = produtoMaisPesado(listaProdutos);
+        }
+        function mostrarProdutoMaisLeve() {
+            document.getElementById("resposta").innerHTML = produtoMaisLeve(listaProdutos);
+        }
+        function mostrarProdutoMaisCaro() {
+            document.getElementById("resposta").innerHTML = produtoMaisCaro(listaProdutos);
+        }
+        function listarTodosOsProdutos() {
+            document.getElementById("resposta").innerHTML = mostrarListaProdutos(listaProdutos);
+        }
+        function mostrarMediaPeso() {
+            document.getElementById("resposta").innerHTML = mediaPeso(listaProdutos);
+        }
+        function mostrarFiltroNome() {
+            let Vnome = document.getElementById("inputNome").value;
+            document.getElementById("resposta").innerHTML = filtroNome(Vnome, listaProdutos);
+        }
+        function mostrarValorEstoque() {
+            document.getElementById("resposta").innerHTML = valorEstoque(listaProdutos);
+        }
+        function mostrarValorTotal() {
+            document.getElementById("resposta").innerHTML = valorTotal(listaProdutos);
+        }
+        function mostrarTotalItens() {
+            document.getElementById("resposta").innerHTML = totalItens(listaProdutos);
+        }
+        function mostrarTotalPeso() {
+            document.getElementById("resposta").innerHTML = totalPeso(listaProdutos);
+        }
+        function mostrarDesconto() {
+            let novo = desconto(listaProdutos);
+            let string = "";
+            let aux = [];
+            for (let i = 0; i < novo.length; i++) {
+                aux.push(0.9 * listaProdutos[novo[i]].precoUnitario)
+                string += listaProdutos[novo[i]].nome + " - R$" + aux[i].toFixed(2) + "<br>";
+            }
+            document.getElementById("resposta").innerHTML = string;
+        }
+        function mostrarClassificacao() {
+            document.getElementById("resposta").innerHTML = classificar(listaProdutos);
+        }
+        function mostrarOrdenacao() {
+            document.getElementById("resposta").innerHTML = ordenar(listaProdutos);
+
+        }
+    </script>
+</body>
+
+</html>

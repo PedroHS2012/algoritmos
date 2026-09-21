@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradutor Morse</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        body {
+            background: #050505;
+            color: #00ff88;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image:
+                radial-gradient(circle at center, hsl(155, 79%, 26%) 0%, #050505 70%);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #00ff88,
+                0 0 40px rgba(0, 255, 136, .4);
+            text-align: center;
+            background: rgba(0, 0, 0, .85);
+        }
+
+        .codigo {
+            color: #00ff88;
+            font-size: 14px;
+            margin-bottom: 15px;
+            opacity: .7;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00ff88;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            background: #000;
+            color: #00ff88;
+            font-size: 18px;
+            outline: none;
+        }
+
+        input:focus {
+            box-shadow: 0 0 15px #00ff88;
+        }
+
+        button {
+            padding: 15px 40px;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        #saida {
+            margin-top: 25px;
+            padding: 20px;
+            border: 2px dashed #00ff88;
+            border-radius: 10px;
+            min-height: 70px;
+            font-size: 22px;
+            word-wrap: break-word;
+            text-shadow: 0 0 8px #00ff88;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <p class="codigo">
+            - .-. .- -.. ..- - --- .-. / -.. . / -- --- .-. ... . / -.-. --- -.. .
+        </p>
+
+        <h1>Tradutor Morse</h1>
+
+        <p># = caractere não existente</p>
+
+        <input placeholder="Digite uma frase ou código Morse" id="inputFrase" type="text">
+
+        <button onclick="codificar()">CODIFICAR/DECODIFICAR</button>
+
+        <p id="saida">Frase Codificada/Decodificada</p>
+
+    </div>
+
+    <script>
+        function traduzirDeMorse(frase) {
+            let aux = frase.split(" ");
+            let traducted = [];
+            for (let i = 0; i < aux.length; i++) {
+                if (aux[i] == ".-") {
+                    traducted.push("a")
+                } else if (aux[i] == "-...") {
+                    traducted.push("b")
+                } else if (aux[i] == "-.-.") {
+                    traducted.push("c")
+                } else if (aux[i] == "-..") {
+                    traducted.push("d")
+                } else if (aux[i] == ".") {
+                    traducted.push("e")
+                } else if (aux[i] == "..-.") {
+                    traducted.push("f")
+                } else if (aux[i] == "--.") {
+                    traducted.push("g")
+                } else if (aux[i] == "....") {
+                    traducted.push("h")
+                } else if (aux[i] == "..") {
+                    traducted.push("i")
+                } else if (aux[i] == ".---") {
+                    traducted.push("j")
+                } else if (aux[i] == "-.-") {
+                    traducted.push("k")
+                } else if (aux[i] == ".-..") {
+                    traducted.push("l")
+                } else if (aux[i] == "--") {
+                    traducted.push("m")
+                } else if (aux[i] == "-.") {
+                    traducted.push("n")
+                } else if (aux[i] == "---") {
+                    traducted.push("o")
+                } else if (aux[i] == ".--.") {
+                    traducted.push("p")
+                } else if (aux[i] == "--.-") {
+                    traducted.push("q")
+                } else if (aux[i] == ".-.") {
+                    traducted.push("r")
+                } else if (aux[i] == "...") {
+                    traducted.push("s")
+                } else if (aux[i] == "-") {
+                    traducted.push("t")
+                } else if (aux[i] == "..-") {
+                    traducted.push("u")
+                } else if (aux[i] == "...-") {
+                    traducted.push("v")
+                } else if (aux[i] == ".--") {
+                    traducted.push("w")
+                } else if (aux[i] == "-..-") {
+                    traducted.push("x")
+                } else if (aux[i] == "-.--") {
+                    traducted.push("y")
+                } else if (aux[i] == "--..") {
+                    traducted.push("z")
+                } else if (aux[i] == "/") {
+                    traducted.push(" ")
+                } else if (aux[i] == ".----") {
+                    traducted.push("1")
+                } else if (aux[i] == "..---") {
+                    traducted.push("2")
+                } else if (aux[i] == "...--") {
+                    traducted.push("3")
+                } else if (aux[i] == "....-") {
+                    traducted.push("4")
+                } else if (aux[i] == ".....") {
+                    traducted.push("5")
+                } else if (aux[i] == "-....") {
+                    traducted.push("6")
+                } else if (aux[i] == "--...") {
+                    traducted.push("7")
+                } else if (aux[i] == "---..") {
+                    traducted.push("8")
+                } else if (aux[i] == "----.") {
+                    traducted.push("9")
+                } else if (aux[i] == "-----") {
+                    traducted.push("0")
+                } else if (aux[i] == "--..--") {
+                    traducted.push(",")
+                } else if (aux[i] == ".-.-.-") {
+                    traducted.push(".")
+                } else if (aux[i] == "..--..") {
+                    traducted.push("?")
+                } else if (aux[i] == "-.-.--") {
+                    traducted.push("!")
+                } else if (aux[i] == ".----.") {
+                    traducted.push("'")
+                } else if (aux[i] == "-..-.") {
+                    traducted.push("/")
+                } else if (aux[i] == "-.-..") {
+                    traducted.push("ç")
+                } else if (aux[i] == "-.--.") {
+                    traducted.push("(")
+                } else if (aux[i] == "-.--.-") {
+                    traducted.push(")")
+                } else if (aux[i] == ".-...") {
+                    traducted.push("&")
+                } else if (aux[i] == "---...") {
+                    traducted.push(":")
+                } else if (aux[i] == "-.-.-.") {
+                    traducted.push(";")
+                } else if (aux[i] == "-...-") {
+                    traducted.push("=")
+                } else if (aux[i] == ".-.-.") {
+                    traducted.push("+")
+                } else if (aux[i] == "-....-") {
+                    traducted.push("-")
+                } else if (aux[i] == "..--.-") {
+                    traducted.push("_")
+                } else if (aux[i] == '.-..-.') {
+                    traducted.push('"')
+                } else if (aux[i] == "...-..-") {
+                    traducted.push("$")
+                } else if (aux[i] == ".--.-.") {
+                    traducted.push("@")
+                } else {
+                    traducted.push("#");
+                }
+
+            }
+            traducted[0] = traducted[0].toUpperCase();
+            return traducted.join("");
+
+        }
+        function traduzirParaMorse(frase) {
+            let aux = frase.split("");
+            let traducted = [];
+            for (let i = 0; i < aux.length; i++) {
+                if (aux[i] == "a" || aux[i] == "A" || aux[i] == "á" || aux[i] == "à" ||
+                    aux[i] == "ã" || aux[i] == "â" || aux[i] == "Á" || aux[i] == "À" || aux[i] == "Ã" || aux[i] == "Â") {
+                    traducted.push(".-")
+                } else if (aux[i] == "b" || aux[i] == "B") {
+                    traducted.push("-...")
+                } else if (aux[i] == "c" || aux[i] == "C") {
+                    traducted.push("-.-.")
+                } else if (aux[i] == "ç" || aux[i] == "Ç") {
+                    traducted.push("-.-..")
+                } else if (aux[i] == "d" || aux[i] == "D") {
+                    traducted.push("-..")
+                } else if (aux[i] == "e" || aux[i] == "E" || aux[i] == "é" || aux[i] == "É" ||
+                    aux[i] == "è" || aux[i] == "È" || aux[i] == "ê" || aux[i] == "Ê") {
+                    traducted.push(".")
+                } else if (aux[i] == "f" || aux[i] == "F") {
+                    traducted.push("..-.")
+                } else if (aux[i] == "g" || aux[i] == "G") {
+                    traducted.push("--.")
+                } else if (aux[i] == "h" || aux[i] == "H") {
+                    traducted.push("....")
+                } else if (aux[i] == "i" || aux[i] == "I" || aux[i] == "í" || aux[i] == "Í" ||
+                    aux[i] == "ì" || aux[i] == "Ì" || aux[i] == "Î" || aux[i] == "î") {
+                    traducted.push("..")
+                } else if (aux[i] == "j" || aux[i] == "J") {
+                    traducted.push(".---")
+                } else if (aux[i] == "k" || aux[i] == "K") {
+                    traducted.push("-.-")
+                } else if (aux[i] == "l" || aux[i] == "L") {
+                    traducted.push(".-..")
+                } else if (aux[i] == "m" || aux[i] == "M") {
+                    traducted.push("--")
+                } else if (aux[i] == "n" || aux[i] == "N") {
+                    traducted.push("-.")
+                } else if (aux[i] == "o" || aux[i] == "O" || aux[i] == "ó" || aux[i] == "Ó" ||
+                    aux[i] == "ò" || aux[i] == "Ò" || aux[i] == "õ" || aux[i] == "Õ" || aux[i] == "ô" || aux[i] == "Ô") {
+                    traducted.push("---")
+                } else if (aux[i] == "p" || aux[i] == "P") {
+                    traducted.push(".--.")
+                } else if (aux[i] == "q" || aux[i] == "Q") {
+                    traducted.push("--.-")
+                } else if (aux[i] == "r" || aux[i] == "R") {
+                    traducted.push(".-.")
+                } else if (aux[i] == "s" || aux[i] == "S") {
+                    traducted.push("...")
+                } else if (aux[i] == "t" || aux[i] == "T") {
+                    traducted.push("-")
+                } else if (aux[i] == "u" || aux[i] == "U" || aux[i] == "ú" || aux[i] == "Ú" ||
+                    aux[i] == "ù" || aux[i] == "Ù" || aux[i] == "û" || aux[i] == "Û") {
+                    traducted.push("..-")
+                } else if (aux[i] == "v" || aux[i] == "V") {
+                    traducted.push("...-")
+                } else if (aux[i] == "W" || aux[i] == "w") {
+                    traducted.push(".--")
+                } else if (aux[i] == "x" || aux[i] == "X") {
+                    traducted.push("-..-")
+                } else if (aux[i] == "y" || aux[i] == "Y") {
+                    traducted.push("-.--")
+                } else if (aux[i] == "z" || aux[i] == "Z") {
+                    traducted.push("--..")
+                } else if (aux[i] == " ") {
+                    traducted.push("/")
+                } else if (aux[i] == "1") {
+                    traducted.push(".----")
+                } else if (aux[i] == "2") {
+                    traducted.push("..---")
+                } else if (aux[i] == "3") {
+                    traducted.push("...--")
+                } else if (aux[i] == "4") {
+                    traducted.push("....-")
+                } else if (aux[i] == "5") {
+                    traducted.push(".....")
+                } else if (aux[i] == "6") {
+                    traducted.push("-....")
+                } else if (aux[i] == "7") {
+                    traducted.push("--...")
+                } else if (aux[i] == "8") {
+                    traducted.push("---..")
+                } else if (aux[i] == "9") {
+                    traducted.push("----.")
+                } else if (aux[i] == "0") {
+                    traducted.push("-----")
+                } else if (aux[i] == ",") {
+                    traducted.push("--..--")
+                } else if (aux[i] == ".") {
+                    traducted.push(".-.-.-")
+                } else if (aux[i] == "?") {
+                    traducted.push("..--..")
+                } else if (aux[i] == "!") {
+                    traducted.push("-.-.--")
+                } else if (aux[i] == "'") {
+                    traducted.push(".----.")
+                } else if (aux[i] == "/") {
+                    traducted.push("-..-.")
+                } else if (aux[i] == "(") {
+                    traducted.push("-.--.")
+                } else if (aux[i] == ")") {
+                    traducted.push("-.--.-")
+                } else if (aux[i] == "&") {
+                    traducted.push(".-...")
+                } else if (aux[i] == ":") {
+                    traducted.push("---...")
+                } else if (aux[i] == ";") {
+                    traducted.push("-.-.-.")
+                } else if (aux[i] == "=") {
+                    traducted.push("-...-")
+                } else if (aux[i] == "+") {
+                    traducted.push(".-.-.")
+                } else if (aux[i] == "-") {
+                    traducted.push("-....-")
+                } else if (aux[i] == "_") {
+                    traducted.push("..--.-")
+                } else if (aux[i] == '"') {
+                    traducted.push(".-..-.")
+                } else if (aux[i] == "$") {
+                    traducted.push("...-..-")
+                } else if (aux[i] == "@") {
+                    traducted.push(".--.-.")
+                } else {
+                    traducted.push("#");
+                }
+
+            }
+            return traducted.join(" ")
+        }
+        function codificar() {
+            let cod = "";
+            let contador = 0;
+            let t = document.getElementById("inputFrase").value;
+            for (i = 0; i < t.length; i++) {
+                if (t[i] !== '.' && t[i] !== ' ' && t[i] !== '-' && t[i] !== '/') {
+                    contador++
+                }
+            }
+            if (contador === 0) {
+                cod = traduzirDeMorse(t);
+            } else {
+                cod = traduzirParaMorse(t);
+            }
+            document.getElementById('saida').innerHTML = cod;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
