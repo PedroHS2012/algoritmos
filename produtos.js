@@ -7,3 +7,4 @@ class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 }
+
