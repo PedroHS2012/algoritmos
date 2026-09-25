@@ -16,6 +16,12 @@
     <button onclick="mostrarMediaIdade()">ex08 - Mostrar Media Idades</button><br>
     <button onclick="mostrarMediaPesos()">ex09 - Mostrar Media Pesos</button><br>
     <button onclick="mostrarAcima50Anos()">ex10 - Mostrar Acima 50 Anos</button><br>
+    <input type="text" id="inputFiltroConvenio" placeholder="coloque o nome do convenio:">
+    <button onclick="mostrarFiltroConvenio()">ex 11 - Filtrar por Convênio</button><br>
+    <input type="text" id="inputFiltroNome" placeholder="coloque o nome do paciente:">
+    <button onclick="mostrarFiltroNome()">ex 12 - Filtrar por Nome</button><br>
+    <button onclick="mostrarIMC()">ex 13 - Mostrar IMC</button><br>
+    <button onclick="mostrarSobrepeso()">ex 14 - Mostrar Sobrepesados</button><br>
 
     <h3 id="saida"></h3>
 
@@ -24,7 +30,7 @@
         let listaPessoas = [];
         let pessoa = new Paciente(1, "Ana Souza", "Unimed", 34, 62.5, 1.65);
         listaPessoas.push(pessoa);
-        pessoa = new Paciente(2, "Bruno Lima", " Bradesco", 45, 88.0, 1.78);
+        pessoa = new Paciente(2, "Bruno Lima", "Bradesco", 45, 88.0, 1.78);
         listaPessoas.push(pessoa);
         pessoa = new Paciente(3, "Carla Dias", "SUS", 28, 55.0, 1.60);
         listaPessoas.push(pessoa);
@@ -175,17 +181,94 @@
             return string;
         }
 
+        //ex 11
+        function mostrarFiltroConvenio() {
+            let convenios = document.getElementById("inputFiltroConvenio").value;
+            document.getElementById("saida").innerHTML = filtroConvenio(listaPessoas, convenios);
+        }
+        function filtroConvenio(listaPessoas, convenios) {
+            let string = "";
+            let aux = 0;
+            for (let i = 0; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].convenio == convenios) {
+                    string += listaPessoas[i].nome + " - " + listaPessoas[i].convenio + "<br>";
+                    aux++
+                }
+            }
+            if (aux == 0) {
+                alert("convenio Nao Encontrado");
+            }
+            return aux + " pessoas encontradas: <br>" + string;
+        }
 
+        //ex 12
+        function mostrarFiltroNome() {
+            let nomes = document.getElementById("inputFiltroNome").value;
+            document.getElementById("saida").innerHTML = filtroNome(listaPessoas, nomes);
+        }
+        function filtroNome(listaPessoas, nomes) {
+            let string = "";
+            let aux = -67;
+            for (let i = 0; i < listaPessoas.length; i++) {
+                if (listaPessoas[i].nome == nomes) {
+                    string += listaPessoas[i].id + " - " + listaPessoas[i].nome + " - " + listaPessoas[i].convenio + " - " + listaPessoas[i].idade + " anos - " + listaPessoas[i].peso + "Kg - " + listaPessoas[i].altura + "m";
+                    aux = 67;
+                }
+            }
+            if (aux == -67) {
+                alert("Pessoa Nao Encontrada");
+                return " ";
+            }
+            return string;
+        }
 
-
-
-
-
-
-
-
-
-    </script>
+        //ex 13
+        function mostrarIMC() {
+            document.getElementById("saida").innerHTML = IMC(listaPessoas);
+        }
+        function IMC(listaPessoas) {
+            let imc = 0;
+            let classificacao = "";
+            let string = "";
+            for (let i = 0; i < listaPessoas.length; i++) {
+                imc = (listaPessoas[i].peso / (listaPessoas[i].altura ** 2)).toFixed(1);
+                if (imc <= 18.5) {
+                    classificacao = "Abaixo do Peso";
+                } else if (imc <= 24.9) {
+                    classificacao = "Peso Normal";
+                } else if (imc <= 29.9) {
+                    classificacao = "Sobrepeso";
+                } else if (imc <= 34.9) {
+                    classificacao = "Obesidade Grau I";
+                } else if (imc <= 39.9) {
+                    classificacao = "Obesidade Grau II";
+                } else {
+                    classificacao = "Obesidade Grau III (Mórbida)";
+                }
+                string += listaPessoas[i].nome + " - " + listaPessoas[i].peso + " - imc: " + imc + " - " + classificacao + "<br>";
+            }
+            return string;
+        }
+  
+  //ex 14
+        function mostrarSobrepeso(){
+            document.getElementById("saida").innerHTML = sobrepeso(listaPessoas);
+        }
+  function sobrepeso(listaPessoas){
+  let imc = 0;
+            let string = "";
+            for (let i = 0; i < listaPessoas.length; i++) {
+                imc = (listaPessoas[i].peso / (listaPessoas[i].altura ** 2)).toFixed(1);
+                if(imc > 25){
+                    string+= listaPessoas[i].nome + " - imc: " + imc + "<br>";
+                }
+  }
+  return string;
+}
+  
+  
+  
+  </script>
 </body>
 
 </html>
